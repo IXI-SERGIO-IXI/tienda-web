@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-abyss: #0b0f14;
+  --color-panel: #10161e;
+  --color-ink: #e8edf2;
+  --color-soft: #c6d0d9;
+  --color-muted: #a6b2be;
+  --color-dim: #6e7b88;
+  --color-faint: #55626f;
+  --color-neon: #45e0cf;
+  --color-neon-deep: #06231f;
+  --color-amber: #f5b84b;
+  --color-amber-deep: #2a1d04;
+  --color-violet: #a78bfa;
+  --color-violet-deep: #1e1533;
+
+  --font-display: "Chakra Petch", system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-abyss);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgba(69, 224, 207, 0.25);
+}
+
+/* parpadeo de los puntos "live" */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes dot-live-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+  .dot-live {
+    animation: dot-live-pulse 2.6s ease-in-out infinite;
+  }
+}

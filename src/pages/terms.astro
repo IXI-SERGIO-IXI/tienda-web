@@ -1,0 +1,16 @@
+---
+import Legal from '../layouts/Legal.astro';
+
+const sections = ['SECCIÓN 1', 'SECCIÓN 2', 'SECCIÓN 3', 'SECCIÓN 4', 'SECCIÓN 5', 'SECCIÓN 6', 'SECCIÓN 7', 'SECCIÓN 8'];
+---
+
+<Legal title="Terms of Service">
+  {
+    sections.map((title, i) => (
+      <>
+        <h2 class="font-display text-xl font-semibold text-ink">{i + 1}. {title}</h2>
+        <p>TEXTO LEGAL DE LA SECCIÓN</p>
+      </>
+    ))
+  }
+</Legal>

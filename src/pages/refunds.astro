@@ -1,0 +1,16 @@
+---
+import Legal from '../layouts/Legal.astro';
+
+const sections = ['SECCIÓN 1', 'SECCIÓN 2', 'SECCIÓN 3', 'SECCIÓN 4'];
+---
+
+<Legal title="Refund Policy">
+  {
+    sections.map((title) => (
+      <>
+        <h2 class="font-display text-xl font-semibold text-ink">{title}</h2>
+        <p>TEXTO LEGAL DE LA SECCIÓN</p>
+      </>
+    ))
+  }
+</Legal>

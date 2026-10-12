@@ -1,0 +1,88 @@
+---
+// pago con tiun. cualquier botón con data-tiun-product abre el pago de ese producto
+---
+
+<dialog
+  id="tiun-thanks"
+  class="m-auto w-[min(92vw,460px)] rounded-[18px] border border-amber/45 bg-panel p-7 text-ink shadow-[0_0_48px_rgba(245,184,75,0.15)] backdrop:bg-black/70 sm:p-8"
+>
+  <div class="flex flex-col gap-4">
+    <span class="font-mono text-[12px] tracking-[2px] text-amber">PAYMENT RECEIVED</span>
+    <h2 class="font-display text-[24px] font-bold">Thank you!</h2>
+    <p class="text-[14.5px] leading-relaxed text-muted">TEXTO DE AGRADECIMIENTO</p>
+    <div class="mt-2 flex flex-wrap gap-3">
+      <form method="dialog">
+        <button
+          class="flex h-11 items-center rounded-[10px] border border-white/16 px-5 font-display text-[14px] font-semibold text-ink transition-colors hover:border-white/35 hover:bg-white/5"
+        >
+          Close
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { tiun } from '@tiun/sdk';
+
+  const thanks = document.getElementById('tiun-thanks') as HTMLDialogElement;
+
+  tiun.init({
+    snippetId: import.meta.env.PUBLIC_TIUN_SNIPPET_ID,
+    language: 'en',
+  });
+
+  // ojo: el pago se hace en la página de stripe y al volver se recarga todo, así que guardo
+  // el producto pulsado en localStorage. caduca a la hora por si alguien no llega a pagar
+  const PENDING_KEY = 'tiun-pending';
+  const PENDING_TTL = 60 * 60 * 1000;
+  let pendingProduct = loadPending();
+
+  function loadPending(): string | undefined {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PENDING_KEY) ?? 'null');
+      if (saved && Date.now() - saved.at < PENDING_TTL) return saved.productId;
+    } catch {}
+    return undefined;
+  }
+
+  function setPending(productId: string | undefined) {
+    pendingProduct = productId;
+    try {
+      if (productId) localStorage.setItem(PENDING_KEY, JSON.stringify({ productId, at: Date.now() }));
+      else localStorage.removeItem(PENDING_KEY);
+    } catch {}
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-tiun-product]').forEach((button) => {
+    button.addEventListener('click', () => {
+      setPending(button.dataset.tiunProduct);
+      tiun.checkout({ productId: pendingProduct });
+    });
+  });
+
+  // tiun no siempre avisa de la compra con 'checkout': si el cliente se registra al pagar
+  // llega como 'login', y al volver de stripe como 'init'. por eso miro también si ya tiene
+  // el producto en productAccess
+  tiun.on('userChange', ({ event, user }) => {
+    if (!pendingProduct || !user) return;
+    if (event !== 'checkout' && !user.productAccess?.includes(pendingProduct)) return;
+
+    const productId = pendingProduct;
+    setPending(undefined);
+    thanks.showModal();
+
+  // aviso de venta: le paso al worker el token y el producto. el worker comprueba con tiun
+  // que la compra es real y es él quien publica el aviso en discord.
+  // keepalive: true para que la petición llegue aunque cierren la pestaña
+    tiun.getUserVerificationToken().then((token) => {
+      if (!token) return;
+      fetch('/api/tiun-sale', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, productId }),
+        keepalive: true,
+      });
+    });
+  });
+</script>

@@ -1,0 +1,14 @@
+{
+  // tiene que llamarse igual que el worker que ya tengas creado en cloudflare
+  "name": "tienda-web",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./dist"
+  },
+  // si no pongo esto, cada wrangler deploy apaga los logs sin avisar
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

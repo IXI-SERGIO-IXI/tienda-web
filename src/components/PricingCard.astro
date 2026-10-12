@@ -1,0 +1,107 @@
+---
+import { SITE, type Tier } from '../config';
+
+interface Props {
+  tier: Tier;
+  accent?: 'neon' | 'amber' | 'violet';
+  badge?: string;
+}
+
+const { tier, accent = 'neon', badge = 'DESTACADO' } = Astro.props;
+
+const PALETTE = {
+  neon: {
+    stroke: '#45E0CF',
+    cardFeatured: 'border-neon/55 bg-neon/5 shadow-[0_0_48px_rgba(69,224,207,0.16)]',
+    badge: 'bg-neon text-neon-deep',
+    title: 'text-neon',
+    divider: 'bg-neon/25',
+    btn: 'bg-neon text-neon-deep shadow-[0_0_28px_rgba(69,224,207,0.35)] hover:shadow-[0_0_40px_rgba(69,224,207,0.5)]',
+  },
+  amber: {
+    stroke: '#F5B84B',
+    cardFeatured: 'border-amber/55 bg-amber/5 shadow-[0_0_48px_rgba(245,184,75,0.13)]',
+    badge: 'bg-amber text-amber-deep',
+    title: 'text-ink',
+    divider: 'bg-amber/25',
+    btn: 'bg-amber text-amber-deep shadow-[0_0_28px_rgba(245,184,75,0.3)] hover:shadow-[0_0_40px_rgba(245,184,75,0.45)]',
+  },
+  violet: {
+    stroke: '#A78BFA',
+    cardFeatured: 'border-violet/55 bg-violet/5 shadow-[0_0_48px_rgba(167,139,250,0.15)]',
+    badge: 'bg-violet text-violet-deep',
+    title: 'text-violet',
+    divider: 'bg-violet/25',
+    btn: 'bg-violet text-violet-deep shadow-[0_0_28px_rgba(167,139,250,0.3)] hover:shadow-[0_0_40px_rgba(167,139,250,0.5)]',
+  },
+} as const;
+
+const c = PALETTE[accent];
+---
+
+<article
+  class:list={[
+    'relative flex flex-col gap-5 rounded-[18px] border p-7 sm:p-8',
+    tier.featured ? c.cardFeatured : 'border-white/10 bg-white/3',
+  ]}
+>
+  {
+    tier.featured && (
+      <span
+        class:list={[
+          'absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3.5 py-1 font-mono text-[11px] font-medium tracking-[1.5px]',
+          c.badge,
+        ]}
+      >
+        {badge}
+      </span>
+    )
+  }
+  <h3
+    class:list={[
+      'font-display text-[17px] font-semibold tracking-[1.5px]',
+      tier.featured ? c.title : 'text-muted',
+    ]}
+  >
+    {tier.name}
+  </h3>
+  <p class="flex items-baseline gap-2">
+    <span class="font-display text-[40px] font-bold leading-none">{tier.price}</span>
+    <span class="text-sm text-dim">{tier.period}</span>
+  </p>
+  <div class:list={['h-px', tier.featured ? c.divider : 'bg-white/8']}></div>
+  <ul class="flex flex-col gap-3">
+    {
+      tier.features.map((feature) => (
+        <li class="flex items-center gap-2.5 text-[14.5px] text-soft">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke={c.stroke}
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0"
+          >
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+          <span>{feature}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <!-- los bots se compran en la tienda de discord, no en la web -->
+  <a
+    href={SITE.discordInvite}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={[
+      'mt-auto flex h-[50px] items-center justify-center rounded-xl font-display text-[15px] font-semibold transition-shadow',
+      tier.featured ? c.btn : 'border border-white/16 text-ink transition-colors hover:border-white/35',
+    ]}
+  >
+    Get it on Discord
+  </a>
+</article>

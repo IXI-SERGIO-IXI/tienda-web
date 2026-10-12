@@ -1,0 +1,173 @@
+---
+import Base from '../layouts/Base.astro';
+import PricingCard from '../components/PricingCard.astro';
+import { PRODUCT2_TIERS } from '../config';
+
+const feed = [
+  { tag: 'EVENTO 1', color: 'text-violet', dot: 'bg-violet', text: 'TEXTO DEL EVENTO', time: 'now' },
+  { tag: 'EVENTO 2', color: 'text-amber', dot: 'bg-amber', text: 'TEXTO DEL EVENTO', time: '3m' },
+  { tag: 'EVENTO 3', color: 'text-violet', dot: 'bg-violet', text: 'TEXTO DEL EVENTO', time: '8m' },
+  { tag: 'EVENTO 4', color: 'text-amber', dot: 'bg-amber', text: 'TEXTO DEL EVENTO', time: '15m' },
+];
+
+const features = [
+  {
+    title: 'TÍTULO DE TARJETA 1',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M12 3 L20 6.5 V11.5 C20 16.5 16.6 20 12 21.5 C7.4 20 4 16.5 4 11.5 V6.5 Z"></path><path d="M12 10 V14"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 2',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M3 6 L9 3 L15 6 L21 3 V18 L15 21 L9 18 L3 21 Z"></path><path d="M9 3 V18"></path><path d="M15 6 V21"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 3',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<circle cx="12" cy="12" r="8"></circle><path d="M12 2 V6"></path><path d="M12 18 V22"></path><path d="M2 12 H6"></path><path d="M18 12 H22"></path><circle cx="12" cy="12" r="1.6" fill="#A78BFA" stroke="none"></circle>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 4',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M13 2 L4 14 H11 L10 22 L20 9 H13 Z"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 5',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M4 5 H20 V17 H12 L7 21 V17 H4 Z"></path><path d="M8 9.5 H16"></path><path d="M8 12.5 H13"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 6',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M4 20 V14"></path><path d="M10 20 V9"></path><path d="M16 20 V12"></path><path d="M22 20 H2"></path><path d="M4 10 L10 5 L16 8 L21 4"></path>',
+  },
+];
+---
+
+<Base title="PRODUCTO 2 — TÍTULO DE LA PÁGINA" description="DESCRIPCIÓN DE LA PÁGINA" active="product-2">
+  <div class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute -top-64 left-1/2 h-[860px] w-[1300px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(167,139,250,0.10),rgba(167,139,250,0))]"
+    >
+    </div>
+
+    <!-- Hero -->
+    <section
+      class="relative mx-auto grid max-w-[1300px] grid-cols-1 items-center gap-14 px-6 pb-20 pt-12 sm:px-10 lg:grid-cols-2 lg:gap-16 lg:px-16 lg:pt-16"
+    >
+      <div class="flex flex-col gap-6">
+        <span
+          class="inline-flex items-center gap-2 self-start rounded-full border border-violet/35 bg-violet/6 px-3.5 py-1.5 font-mono text-xs tracking-[1.5px] text-violet"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-violet"></span>
+          ETIQUETA DEL PRODUCTO
+        </span>
+        <h1 class="font-display text-4xl font-bold leading-[1.08] tracking-[0.5px] sm:text-5xl lg:text-[56px]">
+          TÍTULO PRINCIPAL DEL PRODUCTO 2
+        </h1>
+        <p class="max-w-[540px] text-lg leading-relaxed text-muted">DESCRIPCIÓN DEL PRODUCTO</p>
+        <div class="mt-2 flex flex-wrap items-center gap-4">
+          <a
+            href="#pricing"
+            class="flex h-[52px] items-center rounded-xl bg-violet px-7 font-display text-base font-semibold tracking-[0.5px] text-violet-deep shadow-[0_0_32px_rgba(167,139,250,0.35)] transition-shadow hover:shadow-[0_0_48px_rgba(167,139,250,0.5)]"
+          >
+            BOTÓN PRINCIPAL
+          </a>
+          <a
+            href="#features"
+            class="flex h-[52px] items-center rounded-xl border border-white/14 px-6 text-base text-ink transition-colors hover:border-white/35"
+          >
+            See features
+          </a>
+        </div>
+        <p class="flex items-center gap-2 text-[13.5px] text-dim">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          NOTA BAJO LOS BOTONES
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col overflow-hidden rounded-[18px] border border-white/10 bg-white/4 shadow-[0_24px_64px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+      >
+        <div class="flex items-center justify-between border-b border-white/8 px-5 py-4">
+          <span class="flex items-center gap-2.5">
+            <span class="dot-live h-2 w-2 rounded-full bg-violet shadow-[0_0_10px_rgba(167,139,250,0.9)]"></span>
+            <span class="font-mono text-[12.5px] tracking-[2px] text-muted">ALERTS</span>
+          </span>
+          <span class="font-mono text-[12.5px] text-dim">TEXTO</span>
+        </div>
+        <ul class="flex flex-col">
+          {
+            feed.map((row, i) => (
+              <li class:list={['flex items-center gap-3.5 px-5 py-4', i < feed.length - 1 && 'border-b border-white/6']}>
+                <span class:list={['h-2 w-2 shrink-0 rounded-full', row.dot]} />
+                <span class="flex grow flex-col gap-0.5">
+                  <span class:list={['font-mono text-[13px] font-medium tracking-[0.5px]', row.color]}>{row.tag}</span>
+                  <span class="text-[13.5px] text-muted">{row.text}</span>
+                </span>
+                <span class="font-mono text-xs text-dim">{row.time}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section
+      id="features"
+      class="relative mx-auto flex max-w-[1300px] scroll-mt-8 flex-col gap-10 border-t border-white/8 px-6 py-20 sm:px-10 lg:px-16"
+    >
+      <div
+        class="pointer-events-none absolute -right-96 top-6 h-[640px] w-[860px] bg-[radial-gradient(closest-side,rgba(167,139,250,0.05),rgba(167,139,250,0))]"
+      >
+      </div>
+      <div class="flex max-w-[640px] flex-col gap-3.5">
+        <span class="font-mono text-[13px] tracking-[2.5px] text-violet">ETIQUETA</span>
+        <h2 class="font-display text-3xl font-bold leading-[1.15] sm:text-[38px]">TÍTULO DE SECCIÓN</h2>
+        <p class="text-[16.5px] leading-relaxed text-muted">TEXTO DE SECCIÓN</p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          features.map((feature) => (
+            <article class="flex flex-col gap-3.5 rounded-2xl border border-white/9 bg-white/3 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-violet/30 hover:bg-white/5">
+              <span class="flex h-[42px] w-[42px] items-center justify-center rounded-[11px] border border-violet/30 bg-violet/10">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#A78BFA"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  set:html={feature.icon}
+                />
+              </span>
+              <h3 class="font-display text-lg font-semibold">{feature.title}</h3>
+              <p class="text-[14.5px] leading-relaxed text-muted">{feature.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="relative mx-auto flex max-w-[1300px] scroll-mt-8 flex-col gap-11 px-6 pb-20 pt-2 sm:px-10 lg:px-16">
+      <div
+        class="pointer-events-none absolute -top-24 left-1/2 h-[560px] w-[1000px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(167,139,250,0.07),rgba(167,139,250,0))]"
+      >
+      </div>
+      <div class="flex flex-col items-center gap-3.5 text-center">
+        <span class="font-mono text-[13px] tracking-[2.5px] text-violet">PRICING</span>
+        <h2 class="font-display text-3xl font-bold sm:text-[38px]">TÍTULO DE PRECIOS</h2>
+        <p class="text-[16.5px] text-muted">TEXTO DE PRECIOS</p>
+      </div>
+      <div class="grid grid-cols-1 items-stretch gap-6 pt-3 sm:grid-cols-2 xl:grid-cols-4">
+        {PRODUCT2_TIERS.map((tier) => <PricingCard tier={tier} accent="violet" />)}
+      </div>
+    </section>
+  </div>
+</Base>

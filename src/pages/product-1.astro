@@ -1,0 +1,398 @@
+---
+import Base from '../layouts/Base.astro';
+import PricingCard from '../components/PricingCard.astro';
+import { STATS, PRODUCT1_TIERS } from '../config';
+
+const feed = [
+  { tag: 'EVENTO 1', color: 'text-neon', dot: 'bg-neon', text: 'TEXTO DEL EVENTO', time: 'now' },
+  { tag: 'EVENTO 2', color: 'text-amber', dot: 'bg-amber', text: 'TEXTO DEL EVENTO', time: '4m' },
+  { tag: 'EVENTO 3', color: 'text-amber', dot: 'bg-amber', text: 'TEXTO DEL EVENTO', time: '9m' },
+  { tag: 'EVENTO 4', color: 'text-muted', dot: 'bg-faint', text: 'TEXTO DEL EVENTO', time: '11m' },
+];
+
+const features = [
+  {
+    title: 'TÍTULO DE TARJETA 1',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1.4" fill="#45E0CF" stroke="none"></circle><path d="M12 12 L17.5 6.5"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 2',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M4 5 H20 V17 H12 L7 21 V17 H4 Z"></path><path d="M8 9.5 H16"></path><path d="M8 12.5 H13"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 3',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M20 20 L15.3 15.3"></path><circle cx="10.5" cy="9" r="2"></circle><path d="M7.4 13.6 C8 12.3 9.1 11.6 10.5 11.6 C11.9 11.6 13 12.3 13.6 13.6"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 4',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M12 3 L20 6.5 V11.5 C20 16.5 16.6 20 12 21.5 C7.4 20 4 16.5 4 11.5 V6.5 Z"></path><path d="M12 10 V14"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 5',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M4 20 V14"></path><path d="M10 20 V9"></path><path d="M16 20 V12"></path><path d="M22 20 H2"></path><path d="M4 10 L10 5 L16 8 L21 4"></path>',
+  },
+  {
+    title: 'TÍTULO DE TARJETA 6',
+    body: 'DESCRIPCIÓN DE TARJETA',
+    icon: '<path d="M18 8 A6 6 0 0 0 6 8 C6 15 3 17 3 17 H21 C21 17 18 15 18 8 Z"></path><path d="M13.7 21 a2 2 0 0 1-3.4 0"></path>',
+  },
+];
+
+// ejemplo de panel. el tercer valor dice cómo se pinta: 'badge' con fondo, 'link' en azul
+const infoCard = {
+  title: '~ TÍTULO DEL PANEL ~',
+  top: [
+    ['CAMPO 1', 'VALOR'],
+    ['CAMPO 2', 'VALOR'],
+    ['CAMPO 3', 'VALOR', 'badge'],
+    ['CAMPO 4', 'VALOR'],
+    ['CAMPO 5', 'VALOR'],
+    ['CAMPO 6', 'ENLACE', 'link'],
+  ],
+  boxes: [
+    ['CAMPO 7', 'VALOR'],
+    ['CAMPO 8', 'VALOR'],
+    ['CAMPO 9', 'VALOR'],
+    ['CAMPO 10', 'VALOR'],
+    ['CAMPO 11', 'VALOR'],
+  ],
+  list: [
+    '[00] - ELEMENTO 1',
+    '[00] - ELEMENTO 2',
+    '[00] - ELEMENTO 3',
+    '[00] - ELEMENTO 4',
+    '[00] - ELEMENTO 5',
+    '[00] - ELEMENTO 6',
+    '[00] - ELEMENTO 7',
+    '[00] - ELEMENTO 8',
+  ],
+  recent: [
+    ['ELEMENTO 1', 'TIEMPO'],
+    ['ELEMENTO 2', 'TIEMPO'],
+    ['ELEMENTO 3', 'TIEMPO'],
+    ['ELEMENTO 4', 'TIEMPO'],
+    ['ELEMENTO 5', 'TIEMPO'],
+  ],
+};
+
+const history = [
+  ['NOMBRE 1', 'TIPO', '2m ago'],
+  ['NOMBRE 2', 'TIPO', '15m ago'],
+  ['NOMBRE 3', 'TIPO', '31m ago'],
+  ['NOMBRE 4', 'TIPO', '1h ago'],
+  ['NOMBRE 5', 'TIPO', '2h ago'],
+  ['NOMBRE 6', 'TIPO', '3h ago'],
+];
+
+const tableRows = [
+  ['NOMBRE 1', 'TIPO', 'VALOR', 'VALOR'],
+  ['NOMBRE 2', 'TIPO', 'VALOR', 'VALOR'],
+  ['NOMBRE 3', 'TIPO', 'VALOR', 'VALOR'],
+  ['NOMBRE 4', 'TIPO', 'VALOR', 'VALOR'],
+  ['NOMBRE 5', 'TIPO', 'VALOR', 'VALOR'],
+  ['NOMBRE 6', 'TIPO', 'VALOR', 'VALOR'],
+];
+---
+
+<Base title="PRODUCTO 1 — TÍTULO DE LA PÁGINA" description="DESCRIPCIÓN DE LA PÁGINA" active="product-1">
+  <div class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute -top-64 left-1/2 h-[860px] w-[1300px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(69,224,207,0.09),rgba(69,224,207,0))]"
+    >
+    </div>
+
+    <!-- Hero -->
+    <section
+      class="relative mx-auto grid max-w-[1300px] grid-cols-1 items-center gap-14 px-6 pb-20 pt-12 sm:px-10 lg:grid-cols-2 lg:gap-16 lg:px-16 lg:pt-16"
+    >
+      <div class="flex flex-col gap-6">
+        <span
+          class="inline-flex items-center gap-2 self-start rounded-full border border-neon/35 bg-neon/6 px-3.5 py-1.5 font-mono text-xs tracking-[1.5px] text-neon"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-neon"></span>
+          ETIQUETA DEL PRODUCTO
+        </span>
+        <h1 class="font-display text-4xl font-bold leading-[1.08] tracking-[0.5px] sm:text-5xl lg:text-[56px]">
+          TÍTULO PRINCIPAL DEL PRODUCTO 1
+        </h1>
+        <p class="max-w-[540px] text-lg leading-relaxed text-muted">DESCRIPCIÓN DEL PRODUCTO</p>
+        <div class="mt-2 flex flex-wrap items-center gap-4">
+          <a
+            href="#pricing"
+            class="flex h-[52px] items-center rounded-xl bg-neon px-7 font-display text-base font-semibold tracking-[0.5px] text-neon-deep shadow-[0_0_32px_rgba(69,224,207,0.35)] transition-shadow hover:shadow-[0_0_48px_rgba(69,224,207,0.5)]"
+          >
+            BOTÓN PRINCIPAL
+          </a>
+          <a
+            href="#features"
+            class="flex h-[52px] items-center rounded-xl border border-white/14 px-6 text-base text-ink transition-colors hover:border-white/35"
+          >
+            See features
+          </a>
+        </div>
+        <p class="flex items-center gap-2 text-[13.5px] text-dim">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          NOTA BAJO LOS BOTONES
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col overflow-hidden rounded-[18px] border border-white/10 bg-white/4 shadow-[0_24px_64px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+      >
+        <div class="flex items-center justify-between border-b border-white/8 px-5 py-4">
+          <span class="flex items-center gap-2.5">
+            <span class="dot-live h-2 w-2 rounded-full bg-neon shadow-[0_0_10px_rgba(69,224,207,0.9)]"></span>
+            <span class="font-mono text-[12.5px] tracking-[2px] text-muted">LIVE FEED</span>
+          </span>
+          <span class="font-mono text-[12.5px] text-dim">TEXTO</span>
+        </div>
+        <ul class="flex flex-col">
+          {
+            feed.map((row, i) => (
+              <li class:list={['flex items-center gap-3.5 px-5 py-4', i < feed.length - 1 && 'border-b border-white/6']}>
+                <span class:list={['h-2 w-2 shrink-0 rounded-full', row.dot]} />
+                <span class="flex grow flex-col gap-0.5">
+                  <span class:list={['font-mono text-[13px] font-medium tracking-[0.5px]', row.color]}>{row.tag}</span>
+                  <span class="text-[13.5px] text-muted">{row.text}</span>
+                </span>
+                <span class="font-mono text-xs text-dim">{row.time}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Datos -->
+    <section
+      class="relative mx-auto grid max-w-[1300px] grid-cols-2 border-y border-white/8 px-6 sm:px-10 lg:grid-cols-4 lg:px-16"
+    >
+      {
+        STATS.map((stat, i) => (
+          <div
+            class:list={[
+              'flex flex-col items-center gap-1.5 px-3 py-7',
+              i > 0 && 'lg:border-l lg:border-white/8',
+              i % 2 === 1 && 'border-l border-white/8 lg:border-l',
+            ]}
+          >
+            <span class:list={['font-display text-[26px] font-semibold', stat.accent ? 'text-neon' : 'text-ink']}>
+              {stat.value}
+            </span>
+            <span class="text-center text-[13px] tracking-[1px] text-dim">{stat.label}</span>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="relative mx-auto flex max-w-[1300px] scroll-mt-8 flex-col gap-10 px-6 py-20 sm:px-10 lg:px-16">
+      <div
+        class="pointer-events-none absolute -right-96 top-6 h-[640px] w-[860px] bg-[radial-gradient(closest-side,rgba(69,224,207,0.05),rgba(69,224,207,0))]"
+      >
+      </div>
+      <div class="flex max-w-[640px] flex-col gap-3.5">
+        <span class="font-mono text-[13px] tracking-[2.5px] text-neon">ETIQUETA</span>
+        <h2 class="font-display text-3xl font-bold leading-[1.15] sm:text-[38px]">TÍTULO DE SECCIÓN</h2>
+        <p class="text-[16.5px] leading-relaxed text-muted">TEXTO DE SECCIÓN</p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          features.map((feature) => (
+            <article class="flex flex-col gap-3.5 rounded-2xl border border-white/9 bg-white/3 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-neon/30 hover:bg-white/5">
+              <span class="flex h-[42px] w-[42px] items-center justify-center rounded-[11px] border border-neon/30 bg-neon/10">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#45E0CF"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  set:html={feature.icon}
+                />
+              </span>
+              <h3 class="font-display text-lg font-semibold">{feature.title}</h3>
+              <p class="text-[14.5px] leading-relaxed text-muted">{feature.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Ejemplos de paneles -->
+    <section class="relative mx-auto flex max-w-[1300px] flex-col gap-10 px-6 pb-20 sm:px-10 lg:px-16">
+      <div class="flex max-w-[640px] flex-col gap-3.5">
+        <span class="font-mono text-[13px] tracking-[2.5px] text-neon">ETIQUETA</span>
+        <h2 class="font-display text-3xl font-bold leading-[1.15] sm:text-[38px]">TÍTULO DE SECCIÓN</h2>
+        <p class="text-[16.5px] leading-relaxed text-muted">TEXTO DE SECCIÓN</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <!-- Panel grande -->
+        <article class="flex flex-col gap-4 rounded-2xl border border-white/9 bg-white/3 p-6 sm:p-7" style="border-left: 4px solid #6000E9;">
+          <header class="flex items-center gap-2.5">
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#6000E9]/25">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B39BF5" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 12 L17.5 7.5"></path></svg>
+            </span>
+            <span class="text-[14.5px] font-semibold">PRODUCTO 1</span>
+            <span class="rounded bg-[#6000E9]/30 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-[#C9B8F8]">APP</span>
+            <span class="ml-auto font-mono text-xs text-dim">/comando</span>
+          </header>
+          <h3 class="font-mono text-[15px] font-semibold tracking-[1px] text-ink">{infoCard.title}</h3>
+          <div class="flex flex-col gap-1.5">
+            {
+              infoCard.top.map(([key, value, kind]) => (
+                <p class="flex flex-wrap items-baseline gap-x-2 font-mono text-[12.5px] leading-relaxed">
+                  <span class="font-semibold tracking-[0.5px] text-ink">{key}:</span>
+                  {kind === 'badge' ? (
+                    <span class="rounded bg-white/10 px-1.5 py-0.5 text-soft">{value}</span>
+                  ) : kind === 'link' ? (
+                    <span class="text-[#58A6FF]">{value}</span>
+                  ) : (
+                    <span class="break-all text-muted">{value}</span>
+                  )}
+                </p>
+              ))
+            }
+          </div>
+          <div class="flex flex-col gap-3">
+            {
+              infoCard.boxes.map(([key, value]) => (
+                <div class="flex flex-col gap-1.5">
+                  <span class="font-mono text-[11px] font-semibold tracking-[1.5px] text-dim">{key}</span>
+                  <span class="rounded-lg border border-white/10 bg-black/30 px-3.5 py-2 font-mono text-[13px] text-soft">{value}</span>
+                </div>
+              ))
+            }
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <span class="font-mono text-[11px] font-semibold tracking-[1.5px] text-dim">LISTA 1</span>
+            <pre class="overflow-x-auto rounded-lg border border-white/10 bg-black/30 p-3.5 font-mono text-[12.5px] leading-relaxed text-soft">{infoCard.list.join('\n')}</pre>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <span class="font-mono text-[11px] font-semibold tracking-[1.5px] text-dim">LISTA 2</span>
+            <div class="flex flex-col gap-1">
+              {
+                infoCard.recent.map(([item, when]) => (
+                  <p class="flex flex-wrap items-baseline gap-x-2 font-mono text-[12.5px]">
+                    <span class="font-semibold text-soft">{item}</span>
+                    <span class="text-dim">-</span>
+                    <span class="rounded bg-white/10 px-1.5 py-0.5 text-[11.5px] text-muted">{when}</span>
+                  </p>
+                ))
+              }
+            </div>
+          </div>
+          <div class="mt-1 flex items-center gap-3">
+            <span class="mr-auto font-mono text-[11.5px] text-dim">Page 1</span>
+            <span class="flex h-8 items-center gap-1.5 rounded-lg bg-[#5865F2] px-3 font-mono text-[12px] font-medium text-white">&larr; Back</span>
+            <span class="flex h-8 items-center gap-1.5 rounded-lg bg-[#5865F2] px-3 font-mono text-[12px] font-medium text-white">Next &rarr;</span>
+          </div>
+        </article>
+
+        <!-- Columna de paneles pequeños -->
+        <div class="flex flex-col gap-6">
+          <article class="flex flex-col gap-3 rounded-2xl border border-white/9 bg-white/3 p-6 sm:p-7" style="border-left: 4px solid #45E0CF;">
+            <header class="flex items-center gap-2.5">
+              <span class="font-mono text-[13px] font-medium tracking-[0.5px] text-neon">EVENTO 1</span>
+              <span class="ml-auto font-mono text-xs text-dim">/comando · just now</span>
+            </header>
+            <p class="font-mono text-[12.5px] leading-relaxed text-muted">
+              CAMPO: VALOR<br />
+              CAMPO: VALOR<br />
+              CAMPO: VALOR<br />
+              CAMPO: VALOR
+            </p>
+          </article>
+
+          <article class="flex flex-col gap-3 rounded-2xl border border-white/9 bg-white/3 p-6 sm:p-7" style="border-left: 4px solid #55626F;">
+            <header class="flex items-center gap-2.5">
+              <span class="font-mono text-[13px] font-medium tracking-[0.5px] text-muted">EVENTO 2</span>
+              <span class="ml-auto font-mono text-xs text-dim">/comando · 11m ago</span>
+            </header>
+            <p class="font-mono text-[12.5px] leading-relaxed text-muted">
+              CAMPO: VALOR<br />
+              CAMPO: VALOR<br />
+              CAMPO: VALOR<br />
+              CAMPO: VALOR
+            </p>
+          </article>
+
+          <article class="flex flex-col gap-3.5 rounded-2xl border border-white/9 bg-white/3 p-6 sm:p-7" style="border-left: 4px solid #F5B84B;">
+            <header class="flex items-center justify-between gap-3 overflow-hidden">
+              <span class="whitespace-nowrap font-mono text-[13px] font-medium tracking-[0.5px] text-amber">TABLA DE EJEMPLO</span>
+              <span class="whitespace-nowrap font-mono text-xs text-dim">/comando · every 1 min</span>
+            </header>
+            <div class="overflow-x-auto rounded-lg bg-black/30 p-3.5">
+              <table class="w-full font-mono text-[12.5px] leading-relaxed">
+                <thead>
+                  <tr class="text-left text-amber">
+                    <th class="pr-4 font-medium">COLUMNA 1</th>
+                    <th class="pr-4 font-medium">COLUMNA 2</th>
+                    <th class="pr-4 font-medium">COLUMNA 3</th>
+                    <th class="font-medium">COLUMNA 4</th>
+                  </tr>
+                </thead>
+                <tbody class="text-soft">
+                  {
+                    tableRows.map(([a, b, c, d]) => (
+                      <tr>
+                        <td class="pr-4">{a}</td>
+                        <td class="pr-4">{b}</td>
+                        <td class="pr-4">{c}</td>
+                        <td>{d}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="flex flex-col gap-3.5 rounded-2xl border border-white/9 bg-white/3 p-6 sm:p-7" style="border-left: 4px solid #6000E9;">
+            <header class="flex items-center justify-between gap-3">
+              <span class="font-mono text-[13px] font-medium tracking-[0.5px] text-[#B39BF5]">LISTA 3</span>
+              <span class="font-mono text-xs text-dim">/comando</span>
+            </header>
+            <div class="flex flex-col">
+              {
+                history.map(([name, type, when], i) => (
+                  <p class:list={['flex items-center gap-3 py-2 font-mono text-[12.5px]', i < history.length - 1 && 'border-b border-white/6']}>
+                    <span class="font-semibold text-soft">{name}</span>
+                    <span class="text-dim">{type}</span>
+                    <span class="ml-auto rounded bg-white/10 px-1.5 py-0.5 text-[11.5px] text-muted">{when}</span>
+                  </p>
+                ))
+              }
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="relative mx-auto flex max-w-[1300px] scroll-mt-8 flex-col gap-11 px-6 pb-20 pt-2 sm:px-10 lg:px-16">
+      <div
+        class="pointer-events-none absolute -top-24 left-1/2 h-[560px] w-[1000px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(69,224,207,0.07),rgba(69,224,207,0))]"
+      >
+      </div>
+      <div class="flex flex-col items-center gap-3.5 text-center">
+        <span class="font-mono text-[13px] tracking-[2.5px] text-neon">PRICING</span>
+        <h2 class="font-display text-3xl font-bold sm:text-[38px]">TÍTULO DE PRECIOS</h2>
+        <p class="text-[16.5px] text-muted">TEXTO DE PRECIOS</p>
+      </div>
+      <div class="grid grid-cols-1 items-stretch gap-6 pt-3 sm:grid-cols-2 lg:grid-cols-3">
+        {PRODUCT1_TIERS.map((tier) => <PricingCard tier={tier} accent="neon" />)}
+      </div>
+    </section>
+  </div>
+</Base>

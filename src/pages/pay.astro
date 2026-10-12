@@ -1,0 +1,39 @@
+---
+// enlace de pago para pedidos que se cierran por ticket: /pay?p=<product id de tiun>
+// para pedidos especiales creo un producto nuevo en tiun y mando este enlace
+import Base from '../layouts/Base.astro';
+import TiunCheckout from '../components/TiunCheckout.astro';
+---
+
+<Base title="Payment" description="DESCRIPCIÓN DE LA PÁGINA" standalone noindex>
+  <main class="mx-auto flex min-h-screen max-w-[520px] flex-col items-center justify-center gap-5 px-6 text-center">
+    <span class="font-mono text-[12px] tracking-[2px] text-amber">SECURE PAYMENT</span>
+    <h1 class="font-display text-[28px] font-bold">TÍTULO DE PAGO</h1>
+    <p id="pay-text" class="text-[14.5px] leading-relaxed text-muted">TEXTO DE PAGO</p>
+    <p id="pay-invalid" hidden class="text-[14.5px] leading-relaxed text-muted">TEXTO DE ENLACE NO VÁLIDO</p>
+    <button
+      id="pay-button"
+      type="button"
+      data-tiun-product=""
+      class="flex h-11 items-center rounded-[10px] bg-amber px-5 font-display text-[14px] font-semibold text-amber-deep transition-shadow hover:shadow-[0_0_24px_rgba(245,184,75,0.45)]"
+    >
+      Pay now
+    </button>
+  </main>
+  <TiunCheckout />
+</Base>
+
+<script>
+  // la web es estática, así que el id del enlace lo leo aquí y lo meto en el botón.
+  // el resto lo hace TiunCheckout como con cualquier botón de compra
+  const button = document.getElementById('pay-button') as HTMLButtonElement;
+  const productId = new URLSearchParams(location.search).get('p') ?? '';
+
+  if (/^p-live-[a-z0-9]+$/.test(productId)) {
+    button.dataset.tiunProduct = productId;
+  } else {
+    button.hidden = true;
+    document.getElementById('pay-text')!.hidden = true;
+    document.getElementById('pay-invalid')!.hidden = false;
+  }
+</script>

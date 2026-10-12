@@ -1,0 +1,48 @@
+---
+import { SITE } from '../config';
+
+interface Props {
+  active?: 'product-1' | 'product-2' | 'product-3' | 'product-4';
+}
+const { active } = Astro.props;
+
+// la página de promociones no sale aquí, solo se entra con el enlace directo
+const links = [
+  { href: '/product-1', label: 'Producto 1', key: 'product-1', accent: 'border-neon' },
+  { href: '/product-2', label: 'Producto 2', key: 'product-2', accent: 'border-violet' },
+  { href: '/product-3', label: 'Producto 3', key: 'product-3', accent: 'border-violet' },
+  { href: '/product-4', label: 'Producto 4', key: 'product-4', accent: 'border-amber' },
+];
+
+// en un producto baja a sus precios, en las páginas legales va a los del primero
+const getStarted = active ? '#pricing' : '/product-1#pricing';
+---
+
+<header class="relative z-10 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16">
+  <a href="/product-1" class="flex items-center">
+    <span class="font-display text-lg font-bold tracking-[3px] text-ink">{SITE.name}</span>
+  </a>
+  <nav class="flex items-center gap-6 lg:gap-9">
+    <div class="hidden items-center gap-6 md:flex lg:gap-9">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'text-[15px] transition-colors',
+              active === link.key ? `border-b-2 ${link.accent} pb-1 text-ink` : 'text-muted hover:text-ink',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+    <a
+      href={getStarted}
+      class="flex h-11 items-center rounded-[10px] bg-neon px-5 font-display text-[15px] font-semibold tracking-[0.5px] text-neon-deep transition-shadow hover:shadow-[0_0_24px_rgba(69,224,207,0.45)]"
+    >
+      Get started
+    </a>
+  </nav>
+</header>
